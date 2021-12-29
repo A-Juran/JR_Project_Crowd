@@ -1,6 +1,6 @@
 package com.juran.crowd;
 
-import com.juran.crowd.entity.Admin;
+//import com.juran.crowd.entity.Admin;
 import com.juran.crowd.mapper.AdminMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,16 +39,16 @@ public class CrowdTest {
     @Test
     public void insertTest(){
 //        INSERT INTO `jr_project_crowd`.`t_admin` (`id`, `login_acct`, `user_pswd`, `user_name`, `email`, `create_time`) VALUES (NULL, NULL, NULL, NULL, NULL, NULL);
-        Admin admin = new Admin();
-        admin.setLoginAcct("juran");
-        admin.setUserName("居然");
-        admin.setUserPswd("123456");
-        admin.setEmail("21171326@qq.com");
-        SimpleDateFormat  simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String format = simpleDateFormat.format(new Date());
-        admin.setCreateTime(format);
-        //插入用户
-        int insert = adminMapper.insert(admin);
-        System.out.println(insert);
+//        Admin admin = new Admin();
+//        admin.setLoginAcct("juran");
+//        admin.setUserName("居然");
+//        admin.setUserPswd("123456");
+//        admin.setEmail("21171326@qq.com");
+//        SimpleDateFormat  simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String format = simpleDateFormat.format(new Date());
+//        admin.setCreateTime(format);
+//        //插入用户
+//        int insert = adminMapper.insert(admin);
+        System.out.println("123");
     }
 }
