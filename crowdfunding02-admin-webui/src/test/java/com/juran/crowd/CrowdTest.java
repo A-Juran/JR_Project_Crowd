@@ -1,7 +1,9 @@
 package com.juran.crowd;
 
 //import com.juran.crowd.entity.Admin;
+import com.juran.crowd.entity.Admin;
 import com.juran.crowd.mapper.AdminMapper;
+import com.juran.crowd.service.api.AdminService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +24,14 @@ import java.util.logging.SimpleFormatter;
 //在类上标记必要的注解,spring整合junit
     //整合之后的好处：将类注入到ioc容器当中，类中需要用到IOC中的类时，可以直接"取"出。
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-persist-mybatis.xml"})
+@ContextConfiguration(locations = {"classpath:spring-persist-mybatis.xml","classpath:spring-persist-tx.xml"})
 public class CrowdTest {
     @Autowired
     private DataSource dataSource;
     @Autowired
     private AdminMapper adminMapper;
+    @Autowired
+    private AdminService adminService;
 
     @Test
     public void testConnection() throws SQLException {
@@ -50,5 +54,20 @@ public class CrowdTest {
 //        //插入用户
 //        int insert = adminMapper.insert(admin);
         System.out.println("123");
+    }
+
+    //服务层插入测试(事务管理)
+    @Test
+    public void serviceTest(){
+        Admin admin = new Admin();
+        admin.setLoginAcct("Mike");
+        admin.setUserName("麦克");
+        admin.setUserPswd("123456");
+        admin.setEmail("12540701@qq.com");
+        SimpleDateFormat  simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(new Date());
+        admin.setCreateTime(format);
+        //插入用户
+        adminService.saveAdmin(admin);
     }
 }
