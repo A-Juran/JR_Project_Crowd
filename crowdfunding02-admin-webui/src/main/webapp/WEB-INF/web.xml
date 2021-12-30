@@ -3,4 +3,58 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+        <!--  1、配置contextConfigLocation 加载spring配置文件  -->
+        <context-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-persist-*.xml</param-value>
+        </context-param>
+        <listener>
+            <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+        </listener>
+        <!--   2、CharacterEncodingFilter 字符编码过滤器  -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!--   设置字符集    -->
+        <init-param>
+            <param-name>encodeing</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <!--    设置强制请求与响应的字符集    -->
+        <init-param>
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <!--   字符集过滤器要设置在所有filter之前,个人理解"统一字符集，以免产生乱码之类的问题。"    -->
+    <!--   request.setCharacterEncoding(encoding);设置字符集 必须在 request.getParameter()之前    -->
+    <!--   response.setCharacterEncoding(encoding);设置字符集 必须在 response.getWriter()之前    -->
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+        <!--  通过dispatcherServlet 拦截所有请求 （即配置SpringMVC的前端控制器）  -->
+        <servlet>
+            <servlet-name>springDispatcherServlet</servlet-name>
+            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+            <init-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>classpath:spring-web-mvc.xml</param-value>
+            </init-param>
+            <!--Servlet默认声明周期中，创建对象是在接收到第一次请求时-->
+            <!--DispatcherServlet创建对象后有大量的"框架初始化"工作，不适合在第一次请求时来做-->
+            <load-on-startup>1</load-on-startup>
+            <!--使DispatcherServlet在Web应用启动时就创建对象并初始化   数越小越早-->
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>springDispatcherServlet</servlet-name>
+            <!--/拦截所有请求-->
+            <url-pattern>/</url-pattern>
+            <url-pattern>*.json</url-pattern>
+        </servlet-mapping>
 </web-app>
