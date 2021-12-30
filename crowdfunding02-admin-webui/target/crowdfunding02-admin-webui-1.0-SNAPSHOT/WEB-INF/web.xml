@@ -53,8 +53,8 @@
         </servlet>
         <servlet-mapping>
             <servlet-name>springDispatcherServlet</servlet-name>
-            <!--/拦截所有请求-->
-            <url-pattern>/</url-pattern>
+            <!--根据请求的扩展名决定是否交给SpringMVC来处理-->
+            <url-pattern>*.html</url-pattern>
             <url-pattern>*.json</url-pattern>
         </servlet-mapping>
 </web-app>

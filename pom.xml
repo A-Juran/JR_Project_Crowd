@@ -115,6 +115,11 @@
                 <artifactId>jul-to-slf4j</artifactId>
                 <version>1.7.25</version>
             </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-nop</artifactId>
+                <version>1.7.2</version>
+            </dependency>
             <!-- Spring 进行 JSON 数据转换依赖 -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -133,8 +138,6 @@
                 <artifactId>jstl</artifactId>
                 <version>1.2</version>
             </dependency>
-
-
             <!-- 引入 Servlet 容器中相关依赖 -->
             <dependency>
                 <groupId>javax.servlet</groupId>
