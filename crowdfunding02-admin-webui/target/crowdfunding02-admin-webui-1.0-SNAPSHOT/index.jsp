@@ -95,13 +95,13 @@
                 };   //student end
                 var studentStr = JSON.stringify(student);
                 $.ajax({
-                    url: "send/composearray.html",    //请求目标资源地址
+                    url: "send/composearray.json",    //请求目标资源地址
                     type: "post",                       //请求方式
                     data: studentStr,                   //发送的请求参数
-                    dataType: "text",                   //表示如何对待服务器返回的数据
+                    dataType: "json",                   //表示如何对待服务器返回的数据
                     contentType: "application/json;charset=UTF-8",  //告诉服务器端当前请求的请求体是JSON格式
                     success: function (response) {
-                        alert(response);
+                        console.log(response);
                     },
                     error: function (response) {
                         alert(response);

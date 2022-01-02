@@ -2,6 +2,8 @@ package com.juran.crowd.mvc.handler;
 
 import com.juran.crowd.entity.Admin;
 import com.juran.crowd.entity.ParamData;
+import com.juran.crowd.util.CrowdReqUtil;
+import com.juran.crowd.util.ResultEntity;
 import com.juran.crowd.entity.Student;
 import com.juran.crowd.service.api.AdminService;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -29,8 +32,15 @@ public class TestHandler {
     private Logger logger = LoggerFactory.getLogger(TestHandler.class);
 
     @RequestMapping("/test/ssm.html")
-    public String getAll(ModelMap modelMap){
+    public String getAll(ModelMap modelMap, HttpServletRequest request){
+        boolean requestType = CrowdReqUtil.judgeRequestType(request);
+        logger.info(String.valueOf(requestType));
+
         List<Admin> adminList = adminService.getAll();
+        //System.out.println(10 / 0);
+        //测试注解空指针异常
+        String a = null;
+        System.out.println(a.length());
         modelMap.addAttribute("adminList",adminList);
         return "target";
     }
@@ -64,9 +74,12 @@ public class TestHandler {
     }
 
     @ResponseBody
-    @RequestMapping("/send/composearray.html")
-    public String composetestArray(@RequestBody Student student){
-       logger.info(student.toString());
-        return "success";
+    @RequestMapping("/send/composearray.json")
+    public ResultEntity<Student> composeTestArray(@RequestBody Student student,HttpServletRequest request){
+        boolean requestType = CrowdReqUtil.judgeRequestType(request);
+        logger.info(String.valueOf(requestType));
+        logger.info(student.toString());
+
+        return ResultEntity.successWithData(student);
     }
 }

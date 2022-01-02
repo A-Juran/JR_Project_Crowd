@@ -14,5 +14,17 @@
     </bean>
     <!--启动注解驱动-->
     <mvc:annotation-driven/>
+
+    <!--  配置基于XML的异常映射  -->
+    <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <!--    配置异常类型和具体识图页面的对应关系    -->
+        <property name="exceptionMappings">
+            <props>
+                <!--这个值需要拼接前后缀得到具体路径-->
+                <prop key="java.lang.Exception">System-error</prop>
+            </props>
+        </property>
+    </bean>
+
 </beans>
 
