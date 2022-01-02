@@ -11,6 +11,7 @@
     <title>ssm测试成功</title>
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
     <script type="text/javascript" src="./jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
     <script type="text/javascript">
         $(function () {
             //按钮1
@@ -109,7 +110,12 @@
                 });
 
             });
-        })
+            //引入layer测试
+            $("#btn5").click(function () {
+                layer.msg("测试成功");
+            })
+
+            })
     </script>
 </head>
 <body>
@@ -122,5 +128,7 @@
 <button id="btn3">Send [1,2,3] three</button>
 <br>
 <button id="btn4">Send [1,2,3] three</button>
+<br>
+<button id="btn5">测试layer</button>
 </body>
 </html>

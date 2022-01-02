@@ -14,7 +14,7 @@
     </bean>
     <!--启动注解驱动-->
     <mvc:annotation-driven/>
-
+    <mvc:default-servlet-handler/>
     <!--  配置基于XML的异常映射  -->
     <bean id="simpleMappingExceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <!--    配置异常类型和具体识图页面的对应关系    -->
@@ -25,6 +25,15 @@
             </props>
         </property>
     </bean>
+
+    <!--  配置view-controller,直接把地址和视图名关联起来，不必写handler方法  -->
+    <!--
+        @RequestAMapping("/admin/to/login/page.html")
+        public String toLoginPage(){
+        return "admin-login";
+        }
+    -->
+    <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
 
 </beans>
 
