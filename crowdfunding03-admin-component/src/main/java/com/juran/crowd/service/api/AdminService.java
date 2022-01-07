@@ -1,5 +1,6 @@
 package com.juran.crowd.service.api;
 
+import com.github.pagehelper.PageInfo;
 import com.juran.crowd.entity.Admin;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface AdminService {
     List<Admin> getAll();
 
     Admin getAdminByLoginAcct(String loginAcct, String userPas);
+
+    PageInfo<Admin> getPageInfo(String keyword,Integer pageNum,Integer pageSize);
+
 }

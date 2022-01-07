@@ -1,5 +1,7 @@
 package com.juran.crowd.service.serviceImpl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.juran.crowd.constant.CrowdConstant;
 import com.juran.crowd.entity.Admin;
 import com.juran.crowd.entity.AdminExample;
@@ -66,5 +68,16 @@ public class AdminServiceImpl implements AdminService {
         }
         //8.如果一致则返回Admin对象。
         return admin;
+    }
+
+    @Override
+    public PageInfo<Admin> getPageInfo(String keyword, Integer pageNum, Integer pageSize) {
+        //1.调用pageHelper的静态方法开启分页功能。
+        //pageHelper"非侵入性设计" 原本进行的查询不需要进行修改。
+        PageHelper.startPage(pageNum,pageSize);
+        //2.执行查询查找结果集。
+        List<Admin> adminList = adminMapper.selectAdminByKeyword(keyword);
+        //3.封装到pageInfo中。
+        return new PageInfo<>(adminList);
     }
 }
