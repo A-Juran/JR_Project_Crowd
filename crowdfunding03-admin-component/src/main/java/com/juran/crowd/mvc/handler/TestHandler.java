@@ -39,8 +39,8 @@ public class TestHandler {
         List<Admin> adminList = adminService.getAll();
         //System.out.println(10 / 0);
         //测试注解空指针异常
-        String a = null;
-        System.out.println(a.length());
+//        String a = null;
+//        System.out.println(a.length());
         modelMap.addAttribute("adminList",adminList);
         return "target";
     }

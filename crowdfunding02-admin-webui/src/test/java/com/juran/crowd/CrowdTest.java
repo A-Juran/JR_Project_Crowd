@@ -4,6 +4,7 @@ package com.juran.crowd;
 import com.juran.crowd.entity.Admin;
 import com.juran.crowd.mapper.AdminMapper;
 import com.juran.crowd.service.api.AdminService;
+import com.juran.crowd.util.CrowdReqUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class CrowdTest {
     @Autowired
     private AdminService adminService;
 
+    @Test
+    public void encodedTest(){
+        CrowdReqUtil util = new CrowdReqUtil();
+        String md5 = util.md5("123");
+        System.out.println(md5);
+    }
     @Test
     public void testConnection() throws SQLException {
         Connection connection = dataSource.getConnection();

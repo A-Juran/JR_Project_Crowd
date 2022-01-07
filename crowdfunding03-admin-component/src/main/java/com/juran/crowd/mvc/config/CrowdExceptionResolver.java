@@ -2,12 +2,14 @@ package com.juran.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.juran.crowd.constant.CrowdConstant;
+import com.juran.crowd.exception.LoginFailedException;
 import com.juran.crowd.util.CrowdReqUtil;
 import com.juran.crowd.util.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,6 +23,25 @@ import java.io.IOException;
 public class CrowdExceptionResolver {
     //ExceptionHandler 将一个具体的异常类型和一个方法关联起来。
 
+    /**
+     *  登录异常
+     * @param exception 登录异常
+     * @param request   请求对象
+     * @param response  返回对象
+     * @return  ModelAndView对象
+     * @throws IOException  IO异常
+     */
+    @ExceptionHandler(value = LoginFailedException.class)
+    public ModelAndView resolveLoginFailedException(
+            //实际捕获到的异常类型。
+            LoginFailedException exception,
+            //当前请求的对象。
+            HttpServletRequest request,
+            //响应对象
+            HttpServletResponse response
+    ) throws IOException {
+        return  commonResolve(exception,request,response,"System-error");
+    }
     /**
      * 一个空指针异常绑定一个方法。
      * @param exception
@@ -43,7 +64,7 @@ public class CrowdExceptionResolver {
     //将ExceptionHandler封装
     private ModelAndView commonResolve(
             //实际捕获到的异常类型。
-            NullPointerException exception,
+            Exception exception,
             //当前请求的对象。
             HttpServletRequest request,
             //响应对象
