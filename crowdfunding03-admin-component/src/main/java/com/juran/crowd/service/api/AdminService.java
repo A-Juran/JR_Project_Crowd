@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface AdminService {
 
-    Void saveAdmin(Admin admin);
+    void saveAdmin(Admin admin);
 
     List<Admin> getAll();
 
@@ -19,4 +19,9 @@ public interface AdminService {
 
     PageInfo<Admin> getPageInfo(String keyword,Integer pageNum,Integer pageSize);
 
+    void remove(Integer adminId);
+
+    Admin getAdminById(Integer adminId);
+
+    void update(Admin admin);
 }

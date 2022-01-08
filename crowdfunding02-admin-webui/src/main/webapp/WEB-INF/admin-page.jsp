@@ -73,8 +73,9 @@
                             class=" glyphicon glyphicon-remove"></i> 删除
                     </button>
 
-                    <a href="admin/page/save.html" class="btn btn-primary" style="float:right;"><i
-                            class="glyphicon glyphicon-plus">新增</i></a>
+                    <a href="admin/to/add.html" class="btn btn-primary" style="float:right;">
+                        <i class="glyphicon glyphicon-plus">新增</i>
+                    </a>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -106,9 +107,9 @@
                                         <td>${admin.userName}</td>
                                         <td>${admin.email}</td>
                                         <td>
-                                            <a href="assign/to/page.html?adminId=${admin.id}&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}"
+                                            <a href="admin/do/edit/page.html?adminId=${admin.id}&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}"
                                                class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></a>
-                                            <a href="admin/page/update/${admin.id}/${requestScope.pageInfo.pageNum}/${param.keyword}.html"
+                                            <a href="admin/do/edit/${admin.id}/${requestScope.pageInfo.pageNum}/${param.keyword}.html"
                                                class="btn btn-primary btn-xs"><i
                                                     class=" glyphicon glyphicon-pencil"></i></a>
                                             <a href="admin/do/remove/${admin.id}/${requestScope.pageInfo.pageNum}/${param.keyword}.html"

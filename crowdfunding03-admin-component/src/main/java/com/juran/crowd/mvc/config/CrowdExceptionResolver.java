@@ -2,6 +2,7 @@ package com.juran.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.juran.crowd.constant.CrowdConstant;
+import com.juran.crowd.exception.LoginAcctAlreadyInUseException;
 import com.juran.crowd.exception.LoginFailedException;
 import com.juran.crowd.util.CrowdReqUtil;
 import com.juran.crowd.util.ResultEntity;
@@ -22,6 +23,26 @@ import java.io.IOException;
 @ControllerAdvice
 public class CrowdExceptionResolver {
     //ExceptionHandler 将一个具体的异常类型和一个方法关联起来。
+
+    /**
+     *  用户名新增或更新异常映射
+     * @param exception 异常对象
+     * @param request   请求对象
+     * @param response  响应对象
+     * @return          返回视图
+     * @throws IOException 抛出io异常
+     */
+    @ExceptionHandler(value = LoginAcctAlreadyInUseException.class)
+    public ModelAndView resolveLoginAcctAlreadyInUseException(
+            //实际捕获到的异常类型。
+            LoginAcctAlreadyInUseException exception,
+            //当前请求的对象。
+            HttpServletRequest request,
+            //响应对象
+            HttpServletResponse response
+    ) throws IOException {
+        return  commonResolve(exception,request,response,"admin-add");
+    }
 
     /**
      *  登录异常

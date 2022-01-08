@@ -4,9 +4,11 @@ import com.github.pagehelper.PageInfo;
 import com.juran.crowd.constant.CrowdConstant;
 import com.juran.crowd.entity.Admin;
 import com.juran.crowd.service.api.AdminService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,6 +22,80 @@ import javax.servlet.http.HttpSession;
 public class AdminHandler {
     @Autowired
     private AdminService adminService;
+
+    @RequestMapping("/admin/do/update.html")
+    public String doUpdate(
+            Admin admin,
+            @RequestParam("pageNum") Integer pageNum,
+            @RequestParam("keyword") String keyword
+    ){
+        adminService.update(admin);
+
+        //重定向
+        return "redirect:/admin/get/page.html?keyword="+keyword+"&pageNum="+pageNum+"";
+    }
+
+    /**
+     * 根据用户id返回用户信息
+     * @param adminId   用户id
+     * @param modelMap  视图对象
+     * @return          跳转视图
+     */
+    @RequestMapping("/admin/do/edit/{adminId}/{pageNum}/{keyword}.html")
+    public String doEditPage(
+            @PathVariable("adminId") Integer adminId,
+            @PathVariable("pageNum") Integer pageNum,
+            @PathVariable("keyword") String keyword,
+            ModelMap modelMap
+    ){
+        //1.根据adminId查询用户信息
+        Admin admin= adminService.getAdminById(adminId);
+        //2.将admin对象存入模型
+        modelMap.addAttribute("admin",admin);
+        modelMap.addAttribute("pageNum",pageNum);
+        modelMap.addAttribute("keyword",keyword);
+        //跳转视图
+        return "admin-edit";
+    }
+    /**
+     * 添加用户
+     * @param admin 用户实体
+     * @return  重定向到指定页面
+     */
+    @RequestMapping("/admin/do/Save.html")
+    public String save(Admin admin){
+
+        adminService.saveAdmin(admin);
+        //利用Integer_VALUE跳转到最后一页
+        return "redirect:/admin/get/page.html?pageNum="+Integer.MAX_VALUE+"";
+    }
+    /**
+     * 用户删除
+     * @param adminId   用户id
+     * @param pageNum   当前页
+     * @param keyword   关键字
+     * @return  重定向保持当前页，及搜索关键字
+     */
+    @RequestMapping("/admin/do/remove/{adminId}/{pageNum}/{keyword}.html")
+    public String remove(
+            @PathVariable("adminId") Integer adminId,
+            @PathVariable("pageNum") Integer pageNum,
+            @PathVariable("keyword") String keyword
+            ) {
+        //执行删除
+        adminService.remove(adminId);
+        //方案一：执行删除直接返回界面
+        //该方案会无法显示分页数据。
+//        return "admin-page";
+
+        //方案二： 转发
+        //该方案在完成删除后,不会保存在删除的当前页且刷新界面同时会进行再次提交。
+//        return "forward:/admin/get/page.html";
+
+        //方案二： 重定向
+        //为了保持原本所在的页面和查询关键词再附加pageNum和keyword两个请求参数
+        return "redirect:/admin/get/page.html?keyword="+keyword+"&pageNum="+pageNum+"";
+    }
 
     /**
      * 分页查询

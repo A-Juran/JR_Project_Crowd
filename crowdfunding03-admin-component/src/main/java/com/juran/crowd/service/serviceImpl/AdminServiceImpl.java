@@ -5,13 +5,20 @@ import com.github.pagehelper.PageInfo;
 import com.juran.crowd.constant.CrowdConstant;
 import com.juran.crowd.entity.Admin;
 import com.juran.crowd.entity.AdminExample;
+import com.juran.crowd.exception.LoginAcctAlreadyInUseException;
 import com.juran.crowd.exception.LoginFailedException;
 import com.juran.crowd.mapper.AdminMapper;
 import com.juran.crowd.service.api.AdminService;
 import com.juran.crowd.util.CrowdReqUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.spi.LoggerFactoryBinder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,10 +30,29 @@ import java.util.Objects;
 public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
+
+    private Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
     @Override
-    public Void saveAdmin(Admin admin) {
-        adminMapper.insert(admin);
-        return null;
+    public void saveAdmin(Admin admin) {
+        //1.密码加密
+        String passWord = CrowdReqUtil.md5(admin.getUserPswd());
+        admin.setUserPswd(passWord);
+        //2.生成和创建时间。
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String format = simpleDateFormat.format(date);
+        admin.setCreateTime(format);
+        //3.执行保存
+        try {
+            adminMapper.insert(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("具体异常名"+e.getClass().getName());
+
+            if(e instanceof DuplicateKeyException){
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
     }
 
     @Override
@@ -79,5 +105,30 @@ public class AdminServiceImpl implements AdminService {
         List<Admin> adminList = adminMapper.selectAdminByKeyword(keyword);
         //3.封装到pageInfo中。
         return new PageInfo<>(adminList);
+    }
+
+    @Override
+    public void remove(Integer adminId) {
+        adminMapper.deleteByPrimaryKey(adminId);
+    }
+
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        Admin admin = adminMapper.selectByPrimaryKey(adminId);
+        return admin;
+    }
+
+    @Override
+    public void update(Admin admin) {
+        //1.表示有选择的更新，对于null值字段不更新
+        try {
+            adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException){
+                throw new LoginAcctAlreadyInUseException(CrowdConstant.MESSAGE_SYSTEM_ERROR_LOGIN_NOT_UNIQUE);
+            }
+        }
+
     }
 }
