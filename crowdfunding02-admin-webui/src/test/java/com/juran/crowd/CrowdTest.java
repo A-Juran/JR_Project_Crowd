@@ -2,7 +2,9 @@ package com.juran.crowd;
 
 //import com.juran.crowd.entity.Admin;
 import com.juran.crowd.entity.Admin;
+import com.juran.crowd.entity.Role;
 import com.juran.crowd.mapper.AdminMapper;
+import com.juran.crowd.mapper.RoleMapper;
 import com.juran.crowd.service.api.AdminService;
 import com.juran.crowd.util.CrowdReqUtil;
 import org.junit.Test;
@@ -33,6 +35,16 @@ public class CrowdTest {
     private AdminMapper adminMapper;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Test
+    public void TestRolesave(){
+        for (int i =0;i<60;i++ ){
+            roleMapper.insert(new Role(null,"role"+i));
+        }
+    }
+
 
     @Test
     public void encodedTest(){

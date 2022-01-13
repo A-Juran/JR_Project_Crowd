@@ -120,8 +120,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void update(Admin admin) {
-        //1.表示有选择的更新，对于null值字段不更新
         try {
+            //1.表示有选择的更新，对于null值字段不更新
             adminMapper.updateByPrimaryKeySelective(admin);
         } catch (Exception e) {
             e.printStackTrace();

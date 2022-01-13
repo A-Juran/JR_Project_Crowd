@@ -12,7 +12,7 @@
 
         <!-- 数据库链接URL、用户名、密码 -->
         <jdbcConnection
-                driverClass="com.mysql.cj.jdbc.Driver"
+                driverClass="com.mysql.jdbc.Driver"
                 connectionURL="jdbc:mysql://localhost:3306/jr_project_crowd?serverTimezone=UTC"
                 userId="root"
                 password="root">
@@ -51,8 +51,9 @@
 
 
         <!-- 数据库表名与需要的实体类对应映射的指定 -->
-                <table tableName="t_admin" domainObjectName="Admin" />
-        <!--        <table tableName="t_type" domainObjectName="TypePO" />-->
+<!--                <table tableName="t_admin" domainObjectName="Admin" />-->
+                <table tableName="t_role" domainObjectName="Role" />
+<!--                <table tableName="t_type" domainObjectName="TypePO" />-->
         <!--        <table tableName="t_tag" domainObjectName="TagPO" />-->
         <!--        <table tableName="t_project" domainObjectName="ProjectPO" />-->
         <!--        <table tableName="t_project_item_pic" domainObjectName="ProjectItemPicPO" />-->
@@ -62,6 +63,5 @@
         <!--        <table tableName="t_order" domainObjectName="OrderPO" />-->
         <!--        <table tableName="t_address" domainObjectName="AddressPO" />-->
         <!--        <table tableName="t_order_project" domainObjectName="OrderProjectPO" />-->
-
     </context>
 </generatorConfiguration>

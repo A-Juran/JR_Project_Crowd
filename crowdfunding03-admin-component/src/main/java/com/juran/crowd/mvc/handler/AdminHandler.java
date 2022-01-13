@@ -23,6 +23,13 @@ public class AdminHandler {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * 用户信息更新，并通过pageNum、keyword保持当前页及所搜索内容。
+     * @param admin         用户实体
+     * @param pageNum       当前页
+     * @param keyword       关键字
+     * @return              重定用户信息展示页
+     */
     @RequestMapping("/admin/do/update.html")
     public String doUpdate(
             Admin admin,

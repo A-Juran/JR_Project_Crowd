@@ -10,7 +10,7 @@ function getPageInfoRemote(){
 
     // 调用$.ajax()函数发送请求，并用ajaxResult接收函数返回值
     var ajaxResult = $.ajax({
-        url:"role/page/page.json",
+        url:"admin/do/getrole/info.json",
         type:"post",
         data:{
             "pageNum":window.pageNum,
@@ -23,6 +23,8 @@ function getPageInfoRemote(){
 
     // 取得当前的响应状态码
     var statusCode = ajaxResult.status;
+
+    console.log(statusCode);
 
     // 判断当前状态码是不是200，不是200表示发生错误，通过layer提示错误消息
     if(statusCode != 200) {
