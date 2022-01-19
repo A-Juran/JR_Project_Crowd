@@ -138,7 +138,7 @@
 
         // 为 “确认删除” 按钮绑定单击事件
         $("#confirmRoleBtn").click(function () {
-
+            //从全局变量范围获取roleArray,转换成Json字符串。
             var arrayStr = JSON.stringify(window.roleIdArray);
 
             $.ajax({

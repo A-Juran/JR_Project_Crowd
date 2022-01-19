@@ -58,6 +58,8 @@ function myAddHoverDom(treeId, treeNode) {
 
 // 鼠标移开时，隐藏按钮组
 function myRemoveHoverDom(treeId, treeNode) {
+
+
     // 按钮组span的id
     var btnGroupId = "btnGroupTreeDemo_"+treeNode.id;
     // 删除此id的标签
@@ -67,7 +69,7 @@ function myRemoveHoverDom(treeId, treeNode) {
 // 封装生成树形结构的代码
 function generateTree(){
     $.ajax({
-        url:"menu/do/get.json",
+        url:"menu/get/whole/tree.json",
         type:"post",
         dataType:"json",
         success:function (response) {
