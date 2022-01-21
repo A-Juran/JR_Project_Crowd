@@ -24,6 +24,11 @@ public class MenuHandler {
     @Autowired
     private MenuService menuService;
 
+    /**
+     * 菜单删除
+     * @param id    菜单id
+     * @return  返回封装实体对象
+     */
     @ResponseBody
     @RequestMapping("menu/remove.json")
     public ResultEntity<String> remove(@RequestParam("id") Integer id){

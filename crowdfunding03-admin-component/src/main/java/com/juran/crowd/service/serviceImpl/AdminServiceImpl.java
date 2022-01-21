@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.juran.crowd.constant.CrowdConstant;
 import com.juran.crowd.entity.Admin;
 import com.juran.crowd.entity.AdminExample;
+import com.juran.crowd.entity.Role;
 import com.juran.crowd.exception.LoginAcctAlreadyInUseException;
 import com.juran.crowd.exception.LoginFailedException;
 import com.juran.crowd.mapper.AdminMapper;
@@ -131,4 +132,15 @@ public class AdminServiceImpl implements AdminService {
         }
 
     }
+
+    @Override
+    public void saveAdminRoleRelationShip(Integer adminId, List<Integer> roleIdList) {
+        //1.根据adminId删除旧数据的关联关系数据
+        adminMapper.deleteOldRelationship(adminId);
+        //2.根据roleId和adminId保存新的关联关系。
+        if(roleIdList != null && roleIdList.size()>0){
+            adminMapper.insertNewRelationship(adminId,roleIdList);
+        }
+    }
+
 }

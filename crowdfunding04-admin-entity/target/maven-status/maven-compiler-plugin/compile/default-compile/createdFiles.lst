@@ -1,5 +1,9 @@
-com\juran\crowd\entity\AdminExample$Criterion.class
-com\juran\crowd\entity\AdminExample$Criteria.class
-com\juran\crowd\entity\AdminExample$GeneratedCriteria.class
-com\juran\crowd\entity\Admin.class
+com\juran\crowd\entity\AuthExample$Criterion.class
+com\juran\crowd\entity\AuthExample$Criteria.class
 com\juran\crowd\entity\AdminExample.class
+com\juran\crowd\entity\AdminExample$Criteria.class
+com\juran\crowd\entity\AuthExample$GeneratedCriteria.class
+com\juran\crowd\entity\AuthExample.class
+com\juran\crowd\entity\Admin.class
+com\juran\crowd\entity\AdminExample$Criterion.class
+com\juran\crowd\entity\AdminExample$GeneratedCriteria.class

@@ -252,19 +252,20 @@
             // 通过getCheckedNodes方法拿到被选中的option信息
             var authArray = zTreeObj.getCheckedNodes();
 
+
             for (var i = 0; i < authArray.length; i++) {
                 // 从被选中的auth中遍历得到每一个auth的id
                 var authId = authArray[i].id;
                 // 通过push方法将得到的id存入authIdArray
                 authIdArray.push(authId);
             }
+
             var requestBody = {
                 // 为了后端取值方便，两个数据都用数组格式存放，后端统一用List<Integer>获取
                 "roleId":[window.roleId],
                 "authIdList":authIdArray
             }
             requestBody = JSON.stringify(requestBody);
-
             $.ajax({
                 url: "assign/do/save/role/auth/relationship.json",
                 type: "post",
@@ -287,8 +288,6 @@
             // 关闭模态框
             $("#assignModal").modal("hide");
         });
-
-
 
     });
 </script>
@@ -356,6 +355,6 @@
 <%@include file="/WEB-INF/modal-role-add.jsp" %>
 <%@include file="/WEB-INF/modal-role-update.jsp"%>
 <%@include file="/WEB-INF/modal-role-confirm.jsp"%>
-<%--<%@include file="/WEB-INF/modal-role-assign-auth.jsp"%>--%>
+<%@include file="/WEB-INF/modal-role-assign-auth.jsp"%>
 </body>
 </html>
