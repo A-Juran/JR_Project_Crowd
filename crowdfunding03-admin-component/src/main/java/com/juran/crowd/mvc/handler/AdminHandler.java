@@ -6,6 +6,7 @@ import com.juran.crowd.entity.Admin;
 import com.juran.crowd.service.api.AdminService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -69,6 +70,7 @@ public class AdminHandler {
      * @param admin 用户实体
      * @return  重定向到指定页面
      */
+    @PreAuthorize("hasAuthority('user:save')")
     @RequestMapping("/admin/do/Save.html")
     public String save(Admin admin){
 
@@ -112,6 +114,7 @@ public class AdminHandler {
      * @param modelMap  视图对象
      * @return          返回视图
      */
+    @PreAuthorize("hasRole('经理') or hasAnyAuthority('user:get')")
     @RequestMapping("/admin/get/page.html")
     public String getPageInfo(
             //使用@RequestParmam注解的defaultValue属性,指定默认值，在请求中没有携带对应参数时使用默认值。

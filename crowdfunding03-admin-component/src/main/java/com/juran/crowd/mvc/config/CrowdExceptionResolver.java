@@ -24,6 +24,18 @@ import java.io.IOException;
 public class CrowdExceptionResolver {
     //ExceptionHandler 将一个具体的异常类型和一个方法关联起来。
 
+   /* @ExceptionHandler(value = Exception.class)
+    public ModelAndView resolveException(
+            //实际捕获到的异常类型。
+            Exception exception,
+            //当前请求的对象。
+            HttpServletRequest request,
+            //响应对象
+            HttpServletResponse response) throws IOException {
+        return  commonResolve(exception,request,response,"admin-login");
+
+    }*/
+
     /**
      *  用户名新增或更新异常映射
      * @param exception 异常对象

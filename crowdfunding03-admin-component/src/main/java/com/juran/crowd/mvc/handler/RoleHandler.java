@@ -5,6 +5,7 @@ import com.juran.crowd.entity.Role;
 import com.juran.crowd.service.api.RoleService;
 import com.juran.crowd.util.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class RoleHandler {
      * @param roleIdList    角色id数组
      * @return  返回Json对象。
      */
-    @ResponseBody
+        @ResponseBody
     @RequestMapping("role/do/remove.json")
     public ResultEntity<String> removeByRoleIdArray(@RequestBody List<Integer> roleIdList){
 
@@ -59,9 +60,7 @@ public class RoleHandler {
     @ResponseBody
     @RequestMapping("role/do/save.json")
     public ResultEntity<String> saveRole(Role role){
-
         roleService.saveRole(role);
-
         return ResultEntity.successWithoutData();
     }
 
@@ -72,6 +71,7 @@ public class RoleHandler {
      * @param keyword   关键字
      * @return  返回Json对象
      */
+    @PreAuthorize("hasRole('部长')")
     @ResponseBody
     @RequestMapping("admin/do/getrole/info.json")
     public ResultEntity<PageInfo<Role>> getRolesInfo(

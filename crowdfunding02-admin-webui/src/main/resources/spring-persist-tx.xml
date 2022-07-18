@@ -10,13 +10,14 @@
         <!--    装配数据源    -->
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    <!-- 配置事务切面 -->
+    <!-- 配置事务切面 where 在什么位置进行切入。-->
     <aop:config>
-        <aop:pointcut id="txPoint" expression="execution(* *..*ServiceImpl.*(..))"/>
+        <aop:pointcut id="txPoint" expression="execution(* *..*ServiceImpl.*(..))"  />
         <!-- 将切入点表达式和事务通知关联 -->
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+
     </aop:config>
-    <!--配置事务通知-->
+    <!--配置事务通知 -->
     <tx:advice transaction-manager="txManager" id="txAdvice">
         <!--事务属性-->
         <tx:attributes>
@@ -42,4 +43,8 @@
 
         </tx:attributes>
     </tx:advice>
+    <!--将BCryptPasswordEncoder装配入IOC容器-->
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+
 </beans>

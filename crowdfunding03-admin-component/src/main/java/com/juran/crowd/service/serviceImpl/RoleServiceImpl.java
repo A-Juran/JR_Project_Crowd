@@ -7,6 +7,7 @@ import com.juran.crowd.entity.RoleExample;
 import com.juran.crowd.mapper.RoleMapper;
 import com.juran.crowd.service.api.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +24,13 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public PageInfo<Role> selectRoleByKeyword(Integer pageNum, Integer pageSize, String keyword) {
         //1.使用PageHelper静态方法开启分页功能。
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         //2.进行查询。
         List<Role> roles = roleMapper.selectRoleByKeyword(keyword);
         //3.封装为pageInfo返回
         return new PageInfo<>(roles);
     }
+
 
     @Override
     public void saveRole(Role role) {
@@ -51,8 +53,6 @@ public class RoleServiceImpl implements RoleService {
         criteria.andIdIn(roleIdList);
 
         roleMapper.deleteByExample(roleExample);
-
-
     }
 
     @Override

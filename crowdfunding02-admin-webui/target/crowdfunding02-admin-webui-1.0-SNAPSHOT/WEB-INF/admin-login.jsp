@@ -33,8 +33,8 @@
 </nav>
 
 <div class="container">
-
-    <form action="admin/do/login.html" method="post" class="form-signin" role="form">
+    <%--  admin/do/login.html  --%>
+    <form action="security/do/login.html" method="post" class="form-signin" role="form">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 用户登录</h2>
         <p>${requestScope.exception.message}</p>
         <p>${SPRING_SECURITY_LAST_EXCEPTION.message}</p>
